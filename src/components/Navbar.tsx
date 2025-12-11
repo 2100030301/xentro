@@ -5,6 +5,7 @@ import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import "@/styles/Navbar.css";
+import logoWhite from "@/images/XENTRO-DARK.png";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,19 +18,15 @@ export default function Navbar() {
         <div className="navbar-content flex items-center justify-between">
           {/* Logo - Left Side */}
           <Link href="/" className="navbar-logo shrink-0 flex items-center gap-2 sm:gap-3 group">
-            <div className="logo-icon-wrapper">
-              <svg 
-                viewBox="0 0 80 80" 
-                className="logo-icon" 
-                xmlns="http://www.w3.org/2000/svg"
-                aria-label="Xentro logo"
-              >
-                {/* Double Chevron */}
-                <path d="M 20 20 L 40 40 L 20 60" stroke="white" strokeWidth="4" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M 40 20 L 60 40 L 40 60" stroke="white" strokeWidth="4" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </div>
-            <span className="logo-text text-white font-bold tracking-wide">XENTRO</span>
+            <Image
+              src={logoWhite}
+              alt="XENTRO"
+              width={120}
+              height={40}
+              priority
+              className="h-7 sm:h-9 w-auto"
+            />
+            <span className="logo-text text-white font-bold tracking-wide text-lg sm:text-xl">XENTRO</span>
           </Link>
 
           {/* Center: Can add nav links here if needed */}
