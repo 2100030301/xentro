@@ -3,83 +3,82 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
-
-const navLinks = [
-  { name: "Home", href: "#" },
-  { name: "Features", href: "#features" },
-  { name: "About", href: "#about" },
-  { name: "Pricing", href: "#pricing" },
-  { name: "Contact", href: "#contact" },
-];
+import Image from "next/image";
+import "@/styles/Navbar.css";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
+  const closeMenu = () => setIsOpen(false);
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 px-4 py-3">
-      <div className="max-w-7xl mx-auto flex items-center justify-between bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl px-6 py-4 shadow-lg">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-3 group">
-          <div className="flex items-center justify-center bg-[#2b40f6] p-2 rounded-xl group-hover:scale-110 transition-transform duration-300">
-            <svg viewBox="0 0 24 24" className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M12 3L3 8v8l9 5 9-5V8l-9-5z" />
-              <path d="M12 12l9-5M12 12v9M12 12L3 7" />
-            </svg>
+    <nav className="navbar fixed top-0 left-0 right-0 z-50 bg-black/60 backdrop-blur-xl border-b border-white/10">
+      <div className="navbar-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
+        <div className="navbar-content flex items-center justify-between">
+          {/* Logo - Left Side */}
+          <Link href="/" className="navbar-logo shrink-0 flex items-center gap-2 sm:gap-3 group">
+            <div className="logo-icon-wrapper">
+              <svg 
+                viewBox="0 0 80 80" 
+                className="logo-icon" 
+                xmlns="http://www.w3.org/2000/svg"
+                aria-label="Xentro logo"
+              >
+                {/* Double Chevron */}
+                <path d="M 20 20 L 40 40 L 20 60" stroke="white" strokeWidth="4" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M 40 20 L 60 40 L 40 60" stroke="white" strokeWidth="4" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
+            <span className="logo-text text-white font-bold tracking-wide">XENTRO</span>
+          </Link>
+
+          {/* Center: Can add nav links here if needed */}
+          <div className="navbar-center hidden lg:flex items-center gap-8">
+            {/* Navigation links can be added here */}
           </div>
-          <span className="text-xl font-bold text-white tracking-wide">Xentro</span>
-        </Link>
 
-        {/* Desktop Navigation - Center */}
-        <div className="hidden md:flex items-center gap-10 absolute left-1/2 -translate-x-1/2">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              className="text-base font-medium text-white/70 hover:text-white transition-all duration-300 relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-[#2b40f6] hover:after:w-full after:transition-all after:duration-300"
+          {/* Right Side: Join Waitlist Button & Mobile Menu Toggle */}
+          <div className="navbar-right flex items-center gap-3 sm:gap-4">
+            {/* Join Waitlist Button */}
+            <button 
+              className="btn-join-waitlist text-sm sm:text-base"
+              onClick={() => {
+                // Add scroll behavior or modal logic here
+                console.log("Join Waitlist clicked");
+              }}
+              aria-label="Join the waitlist"
             >
-              {link.name}
-            </Link>
-          ))}
-        </div>
+              Join Waitlist
+            </button>
 
-        {/* Right side buttons */}
-        <div className="hidden md:flex items-center gap-4">
-          <button className="p-2.5 text-white/70 hover:text-white transition-all duration-300">
-            <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <circle cx="12" cy="12" r="4" />
-              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
-            </svg>
-          </button>
-          <button className="px-6 py-2.5 bg-white text-black text-base font-semibold rounded-full transition-all duration-300 hover:bg-white/90 hover:scale-105">
-            Get Started
-          </button>
+            {/* Mobile Menu Toggle */}
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="mobile-menu-toggle lg:hidden inline-flex items-center justify-center w-10 h-10 text-white hover:bg-white/10 rounded-lg transition-colors duration-300"
+              aria-label="Toggle menu"
+              aria-expanded={isOpen}
+            >
+              {isOpen ? (
+                <X className="w-5 h-5 sm:w-6 sm:h-6" />
+              ) : (
+                <Menu className="w-5 h-5 sm:w-6 sm:h-6" />
+              )}
+            </button>
+          </div>
         </div>
-
-        {/* Mobile Menu Button */}
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden text-white p-2"
-        >
-          {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
       </div>
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden mt-4 bg-[#0E0F28]/95 backdrop-blur-xl border border-white/10 rounded-2xl p-6 mx-2">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              className="block px-4 py-3 text-white/60 hover:text-white transition-colors"
-              onClick={() => setIsOpen(false)}
+        <div className="mobile-menu lg:hidden border-t border-white/10 bg-gradient-to-b from-black/80 to-black/60 backdrop-blur-xl">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 space-y-3 sm:space-y-4">
+            {/* Mobile menu content */}
+            <button 
+              className="btn-join-waitlist w-full text-sm sm:text-base"
+              onClick={closeMenu}
+              aria-label="Join the waitlist"
             >
-              {link.name}
-            </Link>
-          ))}
-          <div className="pt-4 border-t border-white/10 mt-4 space-y-3">
-            <button className="w-full px-5 py-3.5 bg-white text-black font-semibold rounded-xl transition-all duration-300">
-              Get Started
+              Join Waitlist
             </button>
           </div>
         </div>

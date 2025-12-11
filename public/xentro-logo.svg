@@ -1,0 +1,12 @@
+<svg viewBox="0 0 200 64" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <!-- Logo Icon: Double Chevron (>) -->
+  <g>
+    <!-- First chevron -->
+    <path d="M 30 16 L 50 32 L 30 48" stroke="white" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Second chevron (overlapping/stacked) -->
+    <path d="M 50 16 L 70 32 L 50 48" stroke="white" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  
+  <!-- Text: XENTRO -->
+  <text x="85" y="45" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="white" letter-spacing="2">XENTRO</text>
+</svg>

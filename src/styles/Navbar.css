@@ -1,0 +1,431 @@
+/* ============================================================================
+   NAVBAR RESPONSIVE STYLES - Fully Responsive Across All Devices
+   ============================================================================ */
+
+/* Navbar Container - Fixed Top */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+/* Navbar Inner Container */
+.navbar-container {
+  width: 100%;
+}
+
+/* Navbar Content - Flex Layout */
+.navbar-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* ============================================================================
+   LOGO STYLING - Responsive
+   ============================================================================ */
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+}
+
+.navbar-logo:hover {
+  transform: scale(1.02);
+}
+
+.navbar-logo:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+  border-radius: 0.375rem;
+}
+
+/* Logo Icon Wrapper */
+.logo-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.navbar-logo:hover .logo-icon-wrapper {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+}
+
+/* Logo SVG Icon */
+.logo-icon {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+/* Logo Text */
+.logo-text {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: white;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+/* ============================================================================
+   RESPONSIVE - MOBILE (< 640px)
+   ============================================================================ */
+
+@media (max-width: 639px) {
+  .navbar-container {
+    padding: 0.75rem 1rem;
+  }
+
+  .logo-icon-wrapper {
+    width: 36px;
+    height: 36px;
+    border-radius: 0.375rem;
+  }
+
+  .logo-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .logo-text {
+    font-size: 1rem;
+  }
+
+  .navbar-center {
+    display: none;
+  }
+}
+
+/* ============================================================================
+   RESPONSIVE - TABLET (640px - 1023px)
+   ============================================================================ */
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .navbar-container {
+    padding: 1rem 1.5rem;
+  }
+
+  .logo-icon-wrapper {
+    width: 40px;
+    height: 40px;
+  }
+
+  .logo-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .logo-text {
+    font-size: 1.25rem;
+  }
+
+  .navbar-center {
+    display: none;
+  }
+}
+
+/* ============================================================================
+   RESPONSIVE - DESKTOP (≥ 1024px)
+   ============================================================================ */
+
+@media (min-width: 1024px) {
+  .navbar-container {
+    padding: 1rem 2rem;
+  }
+
+  .logo-icon-wrapper {
+    width: 40px;
+    height: 40px;
+  }
+
+  .logo-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .logo-text {
+    font-size: 1.25rem;
+  }
+
+  .navbar-center {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .navbar-center a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    position: relative;
+  }
+
+  .navbar-center a:hover {
+    color: white;
+  }
+
+  .navbar-center a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(to right, #3b82f6, #1d4ed8);
+    transition: width 0.3s ease;
+  }
+
+  .navbar-center a:hover::after {
+    width: 100%;
+  }
+}
+
+/* ============================================================================
+   NAVBAR RIGHT SIDE - BUTTON & MENU TOGGLE
+   ============================================================================ */
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* ============================================================================
+   JOIN WAITLIST BUTTON - Responsive
+   ============================================================================ */
+
+.btn-join-waitlist {
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+  font-family: inherit;
+}
+
+.btn-join-waitlist:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.5);
+  background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+}
+
+.btn-join-waitlist:active {
+  transform: translateY(0);
+}
+
+.btn-join-waitlist:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Mobile Button Styling */
+@media (max-width: 639px) {
+  .btn-join-waitlist {
+    padding: 0.5rem 0.875rem;
+    font-size: 0.8125rem;
+    border-radius: 0.375rem;
+  }
+}
+
+/* Tablet & Desktop Button Styling */
+@media (min-width: 640px) {
+  .btn-join-waitlist {
+    padding: 0.625rem 1.5rem;
+    font-size: 0.9375rem;
+    border-radius: 9999px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .btn-join-waitlist {
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+  }
+}
+
+/* Full Width on Mobile Menu */
+.mobile-menu .btn-join-waitlist {
+  width: 100%;
+  padding: 0.75rem 1rem;
+}
+
+/* ============================================================================
+   MOBILE MENU TOGGLE BUTTON
+   ============================================================================ */
+
+.mobile-menu-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+  padding: 0.375rem;
+}
+
+.mobile-menu-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+}
+
+.mobile-menu-toggle:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Hide on Desktop */
+@media (min-width: 1024px) {
+  .mobile-menu-toggle {
+    display: none;
+  }
+}
+
+/* ============================================================================
+   MOBILE MENU - DROPDOWN
+   ============================================================================ */
+
+.mobile-menu {
+  animation: slideDown 0.3s ease forwards;
+  max-height: 200px;
+  overflow: hidden;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    max-height: 200px;
+    transform: translateY(0);
+  }
+}
+
+/* Hide on Desktop */
+@media (min-width: 1024px) {
+  .mobile-menu {
+    display: none;
+  }
+}
+
+/* ============================================================================
+   ACCESSIBILITY
+   ============================================================================ */
+
+/* Focus Visible Styles */
+*:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Skip to Main Content Link (optional accessibility feature) */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #3b82f6;
+  color: white;
+  padding: 8px;
+  text-decoration: none;
+  z-index: 100;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* ============================================================================
+   VIEWPORT-SPECIFIC BREAKPOINTS
+   ============================================================================ */
+
+/* Small phones (320px - 375px) */
+@media (min-width: 320px) and (max-width: 374px) {
+  .navbar-container {
+    padding: 0.6rem 0.75rem;
+  }
+
+  .logo-text {
+    font-size: 0.9rem;
+  }
+
+  .btn-join-waitlist {
+    padding: 0.45rem 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  .navbar-right {
+    gap: 0.5rem;
+  }
+}
+
+/* Regular phones (375px - 414px) */
+@media (min-width: 375px) and (max-width: 414px) {
+  .navbar-container {
+    padding: 0.75rem 1rem;
+  }
+}
+
+/* Large phones (414px - 639px) */
+@media (min-width: 414px) and (max-width: 639px) {
+  .navbar-container {
+    padding: 0.875rem 1rem;
+  }
+
+  .logo-text {
+    font-size: 1.125rem;
+  }
+
+  .btn-join-waitlist {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+}
+
+/* ============================================================================
+   TRANSITIONS & ANIMATIONS
+   ============================================================================ */
+
+.navbar,
+.navbar-logo,
+.navbar-logo:hover .logo-icon-wrapper,
+.btn-join-waitlist,
+.mobile-menu-toggle {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
