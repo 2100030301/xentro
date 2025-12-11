@@ -1,141 +1,133 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Link from "next/link";
-import { 
-  Twitter, 
-  Instagram, 
-  Linkedin, 
-  Youtube, 
-  Mail, 
-  MapPin,
-  ArrowUpRight
-} from "lucide-react";
+import { Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
+import "@/styles/Footer.css";
 
-const footerLinks = {
-  product: [
-    { name: "Features", href: "#" },
-    { name: "Programs", href: "#" },
-    { name: "Mentorship", href: "#" },
-    { name: "Resources", href: "#" },
-  ],
-  company: [
-    { name: "About Us", href: "#" },
-    { name: "Careers", href: "#" },
-    { name: "Press Kit", href: "#" },
-    { name: "Blog", href: "#" },
-  ],
-  legal: [
-    { name: "Privacy Policy", href: "#" },
-    { name: "Terms of Service", href: "#" },
-    { name: "Cookie Policy", href: "#" },
-  ],
-  social: [
-    { name: "Twitter", href: "#", icon: Twitter },
-    { name: "Instagram", href: "#", icon: Instagram },
-    { name: "LinkedIn", href: "#", icon: Linkedin },
-    { name: "YouTube", href: "#", icon: Youtube },
-  ],
-};
+const socialLinks = [
+  {
+    name: "Facebook",
+    href: "https://facebook.com/xentro",
+    icon: Facebook,
+    label: "Visit XENTRO on Facebook"
+  },
+  {
+    name: "Twitter",
+    href: "https://twitter.com/xentro",
+    icon: Twitter,
+    label: "Follow XENTRO on Twitter"
+  },
+  {
+    name: "LinkedIn",
+    href: "https://linkedin.com/company/xentro",
+    icon: Linkedin,
+    label: "Connect with XENTRO on LinkedIn"
+  },
+  {
+    name: "Instagram",
+    href: "https://instagram.com/xentro",
+    icon: Instagram,
+    label: "Follow XENTRO on Instagram"
+  }
+];
+
+const footerLinks = [
+  { name: "Home", href: "/" },
+  { name: "About", href: "#about" },
+  { name: "Contact", href: "#contact" }
+];
 
 export default function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <footer className="relative bg-[#060608] border-t border-white/5">
-      <div className="max-w-7xl mx-auto px-6 py-16">
-        <div className="grid lg:grid-cols-5 gap-12 mb-16">
-          {/* Brand column */}
-          <div className="lg:col-span-2">
-            <Link href="/" className="flex items-center gap-2 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
-                <span className="text-white font-bold text-lg">X</span>
-              </div>
-              <span className="text-xl font-bold text-white">Xentro</span>
-            </Link>
-            <p className="text-gray-400 mb-6 max-w-sm leading-relaxed">
-              Building India&apos;s First Digital Entrepreneurial Ecosystem for Students and Early Stage Founders.
-            </p>
-            <div className="flex items-center gap-4 text-gray-500 text-sm mb-4">
-              <Mail className="w-4 h-4" />
-              <span>hello@xentro.in</span>
-            </div>
-            <div className="flex items-center gap-4 text-gray-500 text-sm">
-              <MapPin className="w-4 h-4" />
-              <span>Bengaluru, India</span>
-            </div>
-          </div>
-          
-          {/* Links columns */}
-          <div>
-            <h4 className="text-white font-semibold mb-4">Product</h4>
-            <ul className="space-y-3">
-              {footerLinks.product.map((link) => (
-                <li key={link.name}>
-                  <Link 
-                    href={link.href}
-                    className="text-gray-400 hover:text-white transition-colors text-sm flex items-center gap-1 group"
-                  >
-                    {link.name}
-                    <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-          
-          <div>
-            <h4 className="text-white font-semibold mb-4">Company</h4>
-            <ul className="space-y-3">
-              {footerLinks.company.map((link) => (
-                <li key={link.name}>
-                  <Link 
-                    href={link.href}
-                    className="text-gray-400 hover:text-white transition-colors text-sm flex items-center gap-1 group"
-                  >
-                    {link.name}
-                    <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-          
-          <div>
-            <h4 className="text-white font-semibold mb-4">Legal</h4>
-            <ul className="space-y-3">
-              {footerLinks.legal.map((link) => (
-                <li key={link.name}>
-                  <Link 
-                    href={link.href}
-                    className="text-gray-400 hover:text-white transition-colors text-sm"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-        
-        {/* Bottom section */}
-        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-gray-500 text-sm">
-            © 2024 Xentro. All rights reserved. Built with ❤️ for student founders.
-          </p>
-          
-          {/* Social links */}
-          <div className="flex items-center gap-4">
-            {footerLinks.social.map((social) => (
-              <motion.a
-                key={social.name}
-                href={social.href}
-                whileHover={{ scale: 1.1, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 hover:border-indigo-500/30 transition-all duration-300"
+    <footer className="footer-wrapper">
+      {/* Main Footer Content */}
+      <div className="footer-main">
+        <div className="footer-container">
+          {/* Logo Section */}
+          <div className="footer-logo-section">
+            <div className="footer-logo">
+              <svg
+                viewBox="0 0 80 80"
+                className="footer-logo-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-label="Xentro logo"
               >
-                <social.icon className="w-5 h-5" />
-              </motion.a>
-            ))}
+                {/* Double Chevron */}
+                <path
+                  d="M 20 20 L 40 40 L 20 60"
+                  stroke="#1f2937"
+                  strokeWidth="4"
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M 40 20 L 60 40 L 40 60"
+                  stroke="#1f2937"
+                  strokeWidth="4"
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+            <h2 className="footer-brand">XENTRO</h2>
           </div>
+
+          {/* Description */}
+          <p className="footer-description">
+            India's first digital incubator for students, connecting ambitious founders 
+            with world-class mentors, investors, and institutions.
+          </p>
+
+          {/* Social Icons */}
+          <div className="footer-social">
+            {socialLinks.map((social) => {
+              const Icon = social.icon;
+              return (
+                <a
+                  key={social.name}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="footer-social-link"
+                  aria-label={social.label}
+                  title={social.label}
+                >
+                  <Icon className="footer-social-icon" />
+                  <span className="sr-only">{social.name}</span>
+                </a>
+              );
+            })}
+          </div>
+
+          {/* Footer Navigation Links */}
+          <nav className="footer-nav" aria-label="Footer navigation">
+            {footerLinks.map((link, index) => (
+              <div key={link.name} className="footer-nav-item">
+                <Link href={link.href} className="footer-link">
+                  {link.name}
+                </Link>
+                {index < footerLinks.length - 1 && (
+                  <span className="footer-link-divider" aria-hidden="true">·</span>
+                )}
+              </div>
+            ))}
+          </nav>
+        </div>
+      </div>
+
+      {/* Bottom Footer Bar */}
+      <div className="footer-bottom">
+        <div className="footer-bottom-container">
+          <p className="footer-copyright">
+            © {currentYear} XENTRO. All rights reserved.
+          </p>
+          <p className="footer-credit">
+            Made with <span className="footer-heart">♥</span> by XENTRO Team
+          </p>
         </div>
       </div>
     </footer>
