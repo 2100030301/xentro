@@ -2,6 +2,8 @@
    NAVBAR RESPONSIVE STYLES - Fully Responsive Across All Devices
    ============================================================================ */
 
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Bitcount+Grid+Double:wght@100..900&family=Bitcount+Prop+Double+Ink:wght,SZP1,SZP2,XPN1,XPN2@100..900,0..100,0..100,-100..100,-100..100&family=Bitcount+Prop+Single:wght@100..900&family=Macondo&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Unna:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
 /* Navbar Container - Fixed Top */
 .navbar {
   position: fixed;
@@ -78,6 +80,7 @@
 
 /* Logo Text */
 .logo-text {
+  font-family: 'Montserrat', 'Playfair Display', sans-serif;
   font-size: 1.25rem;
   font-weight: 700;
   color: white;
