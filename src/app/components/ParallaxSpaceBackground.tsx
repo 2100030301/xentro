@@ -12,6 +12,17 @@ type Star = {
   tw: number;
 };
 
+type ShootingStar = {
+  id: number;
+  x: number;
+  y: number;
+  angle: number;
+  speed: number;
+  length: number;
+  opacity: number;
+  width: number;
+};
+
 function clamp(value: number, min: number, max: number) {
   return Math.max(min, Math.min(max, value));
 }
@@ -28,6 +39,7 @@ export default function ParallaxSpaceBackground({
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const nebulaRef = useRef<HTMLDivElement | null>(null);
   const starsRef = useRef<Star[] | null>(null);
+  const shootingStarsRef = useRef<ShootingStar[]>([]);
   const introMsRef = useRef(introMs);
   const settleMsRef = useRef(settleMs);
   const onIntroCompleteRef = useRef(onIntroComplete);
@@ -229,6 +241,49 @@ export default function ParallaxSpaceBackground({
             state.introDone = true;
             onIntroCompleteRef.current?.();
           }
+        }
+
+        // Shooting Stars
+        if (Math.random() < 0.01) {
+          const angle = Math.PI / 4 + (Math.random() - 0.5) * 0.5;
+          shootingStarsRef.current.push({
+            id: Date.now() + Math.random(),
+            x: Math.random() * state.w,
+            y: Math.random() * (state.h * 0.5),
+            angle: angle,
+            speed: 15 + Math.random() * 15,
+            length: 100 + Math.random() * 80,
+            opacity: 1,
+            width: 1 + Math.random() * 1.5,
+          });
+        }
+
+        for (let i = shootingStarsRef.current.length - 1; i >= 0; i--) {
+          const s = shootingStarsRef.current[i];
+
+          s.x += Math.cos(s.angle) * s.speed;
+          s.y += Math.sin(s.angle) * s.speed;
+          s.opacity -= 0.015;
+
+          if (s.opacity <= 0 || s.x > state.w + s.length || s.y > state.h + s.length) {
+            shootingStarsRef.current.splice(i, 1);
+            continue;
+          }
+
+          const tailX = s.x - Math.cos(s.angle) * s.length;
+          const tailY = s.y - Math.sin(s.angle) * s.length;
+
+          const gradient = ctx.createLinearGradient(s.x, s.y, tailX, tailY);
+          gradient.addColorStop(0, `rgba(255, 255, 255, ${s.opacity})`);
+          gradient.addColorStop(1, `rgba(255, 255, 255, 0)`);
+
+          ctx.beginPath();
+          ctx.strokeStyle = gradient;
+          ctx.lineWidth = s.width;
+          ctx.lineCap = "round";
+          ctx.moveTo(tailX, tailY);
+          ctx.lineTo(s.x, s.y);
+          ctx.stroke();
         }
       }
 

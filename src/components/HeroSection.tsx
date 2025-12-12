@@ -99,127 +99,55 @@ function SpotlightOrb({ mousePos }: { mousePos: { x: number; y: number } }) {
     });
   }, [mousePos]);
 
-  const lightX = 50 + offset.x * 1.2;
-  const lightY = 6 + offset.y * 0.6;
-  const bandMask =
-    "radial-gradient(ellipse 70% 18% at 50% 0%, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 55%, rgba(255,255,255,0) 82%)";
-
   return (
     <div
       ref={orbRef}
       className="relative w-screen h-[500px] sm:h-[600px] lg:h-[700px]"
       style={{ maxWidth: '100vw' }}
     >
-      {/* Planet body - large curved surface */}
+      {/* Sun/Starburst Glow - Behind the planet */}
       <div 
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[250vw] h-[250vw] rounded-full"
-        style={{ 
-          background: `
-            radial-gradient(circle at ${lightX}% ${lightY}%, rgba(70, 150, 255, 0.22) 0%, rgba(25, 60, 110, 0.18) 22%, rgba(0, 0, 0, 0) 58%),
-            radial-gradient(circle at 50% 0%, #0b182b 0%, #050c16 20%, #02050b 42%, #000000 70%)
-          `,
-        }}
-      />
-
-      {/* Terminator / curvature shading */}
-      <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[250vw] h-[250vw] rounded-full opacity-80"
+        className="absolute top-[-120px] left-1/2 -translate-x-1/2 w-[120vw] h-[500px] z-0 transition-transform duration-300 ease-out"
         style={{
-          background: `radial-gradient(circle at ${lightX + 10}% ${lightY + 6}%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.25) 35%, rgba(0,0,0,0.72) 62%, rgba(0,0,0,0.92) 100%)`,
-          mixBlendMode: "multiply",
-        }}
-      />
-      
-      {/* Surface texture - subtle blue variations */}
-      <div 
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[250vw] h-[250vw] rounded-full opacity-40"
-        style={{ 
-          background: `
-            radial-gradient(ellipse 30% 8% at ${45 + offset.x * 0.5}% 3%, rgba(80, 130, 180, 0.3) 0%, transparent 100%),
-            radial-gradient(ellipse 25% 6% at ${55 + offset.x * 0.3}% 5%, rgba(60, 110, 160, 0.25) 0%, transparent 100%),
-            radial-gradient(ellipse 35% 10% at ${50 + offset.x * 0.2}% 8%, rgba(50, 100, 150, 0.2) 0%, transparent 100%)
-          `,
-          WebkitMaskImage: bandMask,
-          maskImage: bandMask,
+            transform: `translateX(${offset.x * 3}px)`,
+            background: `
+                radial-gradient(circle at 50% 100%, 
+                rgba(255, 255, 255, 1) 0%, 
+                rgba(255, 230, 200, 0.8) 4%, 
+                rgba(100, 200, 255, 0.4) 12%, 
+                rgba(30, 80, 180, 0.2) 30%, 
+                transparent 60%)
+            `,
+            filter: 'blur(25px)',
+            mixBlendMode: 'screen',
+            opacity: 0.9
         }}
       />
 
-      {/* Cloud / haze band (masked to the horizon area) */}
-      <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[250vw] h-[250vw] rounded-full opacity-30"
+      {/* Atmospheric Outer Glow (The blue haze above horizon) */}
+      <div 
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[250vw] h-[250vw] rounded-full z-10"
         style={{
-          background: `
-            radial-gradient(ellipse 24% 6% at ${40 + offset.x * 0.6}% 4.4%, rgba(210, 235, 255, 0.18) 0%, transparent 78%),
-            radial-gradient(ellipse 20% 5% at ${58 + offset.x * 0.45}% 5.6%, rgba(190, 220, 255, 0.16) 0%, transparent 75%),
-            radial-gradient(ellipse 28% 7% at ${50 + offset.x * 0.35}% 7.2%, rgba(170, 210, 255, 0.12) 0%, transparent 76%)
-          `,
-          filter: "blur(10px)",
-          mixBlendMode: "screen",
-          WebkitMaskImage: bandMask,
-          maskImage: bandMask,
+            background: 'transparent',
+            boxShadow: `
+                0 -4px 20px rgba(100, 200, 255, 0.5),
+                0 -15px 50px rgba(50, 150, 255, 0.3),
+                0 -50px 120px rgba(20, 80, 200, 0.2)
+            `
         }}
       />
 
-      {/* Specular highlight */}
-      <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[250vw] h-[250vw] rounded-full opacity-60"
-        style={{
-          background: `radial-gradient(ellipse 18% 5% at ${46 + offset.x * 0.7}% 3.2%, rgba(200, 235, 255, 0.22) 0%, rgba(140, 200, 255, 0.08) 28%, transparent 75%)`,
-          filter: "blur(6px)",
-          mixBlendMode: "screen",
-          WebkitMaskImage: bandMask,
-          maskImage: bandMask,
-        }}
-      />
-      
-      {/* City lights */}
+      {/* The Planet Body (Silhouette) */}
       <div 
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[250vw] h-[250vw] rounded-full opacity-50"
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[250vw] h-[250vw] rounded-full z-20 bg-black"
         style={{ 
-          background: `
-            radial-gradient(ellipse 1.5% 0.4% at 42% 4%, rgba(255, 200, 100, 0.7) 0%, transparent 100%),
-            radial-gradient(ellipse 2% 0.5% at 58% 5%, rgba(255, 220, 150, 0.6) 0%, transparent 100%),
-            radial-gradient(ellipse 1% 0.3% at 48% 6%, rgba(255, 180, 80, 0.5) 0%, transparent 100%),
-            radial-gradient(ellipse 1.8% 0.4% at 63% 4.5%, rgba(255, 200, 120, 0.6) 0%, transparent 100%),
-            radial-gradient(ellipse 1.2% 0.3% at 38% 5.5%, rgba(255, 210, 140, 0.5) 0%, transparent 100%)
-          `,
-          filter: "blur(0.4px)",
-          mixBlendMode: "screen",
-          WebkitMaskImage: bandMask,
-          maskImage: bandMask,
-        }}
-      />
-
-      {/* Atmospheric glow on the curved edge */}
-      <div 
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[250vw] h-[250vw] rounded-full"
-        style={{ 
+          // The sharp thin blue line is created by this inset shadow
           boxShadow: `
-            inset 0 14px 120px rgba(120, 200, 255, 0.08),
-            inset 0 6px 55px rgba(90, 170, 255, 0.12),
-            inset 0 2px 18px rgba(140, 215, 255, 0.16),
-            0 -18px 90px rgba(70, 150, 255, 0.16),
-            0 -10px 55px rgba(90, 175, 255, 0.20),
-            0 -5px 28px rgba(120, 200, 255, 0.22),
-            0 -2px 14px rgba(150, 225, 255, 0.24)
-          `,
-        }}
-      />
-      
-      {/* Soft curved glow following the planet edge */}
-      <div 
-        className="absolute top-0 left-0 right-0 h-[110px] transition-all duration-700 rounded-b-[55%]"
-        style={{ 
-          background: `radial-gradient(ellipse 62% 100% at 50% 0%,
-            rgba(140, 215, 255, 0.24) 0%,
-            rgba(90, 175, 255, 0.14) 28%,
-            rgba(60, 130, 230, 0.08) 55%,
-            rgba(20, 60, 140, 0.05) 70%,
-            transparent 100%
-          )`,
-          filter: "blur(12px)",
-          mixBlendMode: "screen",
-          transform: `translate3d(${offset.x * 1.1}px, ${offset.y * 0.8}px, 0)`,
+            inset 0 2px 3px rgba(255, 255, 255, 0.95),
+            inset 0 5px 10px rgba(120, 220, 255, 0.8),
+            inset 0 15px 30px rgba(40, 120, 220, 0.6),
+            inset 0 40px 80px rgba(10, 40, 100, 0.4)
+          `
         }}
       />
     </div>
