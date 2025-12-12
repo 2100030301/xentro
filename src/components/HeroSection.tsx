@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+import ParallaxSpaceBackground from "@/app/components/ParallaxSpaceBackground";
 
 const sentences = [
   [
@@ -98,6 +99,11 @@ function SpotlightOrb({ mousePos }: { mousePos: { x: number; y: number } }) {
     });
   }, [mousePos]);
 
+  const lightX = 50 + offset.x * 1.2;
+  const lightY = 6 + offset.y * 0.6;
+  const bandMask =
+    "radial-gradient(ellipse 70% 18% at 50% 0%, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 55%, rgba(255,255,255,0) 82%)";
+
   return (
     <div
       ref={orbRef}
@@ -108,7 +114,19 @@ function SpotlightOrb({ mousePos }: { mousePos: { x: number; y: number } }) {
       <div 
         className="absolute top-0 left-1/2 -translate-x-1/2 w-[250vw] h-[250vw] rounded-full"
         style={{ 
-          background: "radial-gradient(circle at 50% 0%, #0c1a2d 0%, #06101c 15%, #030810 30%, #010204 50%, #000000 70%)",
+          background: `
+            radial-gradient(circle at ${lightX}% ${lightY}%, rgba(70, 150, 255, 0.22) 0%, rgba(25, 60, 110, 0.18) 22%, rgba(0, 0, 0, 0) 58%),
+            radial-gradient(circle at 50% 0%, #0b182b 0%, #050c16 20%, #02050b 42%, #000000 70%)
+          `,
+        }}
+      />
+
+      {/* Terminator / curvature shading */}
+      <div
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[250vw] h-[250vw] rounded-full opacity-80"
+        style={{
+          background: `radial-gradient(circle at ${lightX + 10}% ${lightY + 6}%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.25) 35%, rgba(0,0,0,0.72) 62%, rgba(0,0,0,0.92) 100%)`,
+          mixBlendMode: "multiply",
         }}
       />
       
@@ -121,6 +139,36 @@ function SpotlightOrb({ mousePos }: { mousePos: { x: number; y: number } }) {
             radial-gradient(ellipse 25% 6% at ${55 + offset.x * 0.3}% 5%, rgba(60, 110, 160, 0.25) 0%, transparent 100%),
             radial-gradient(ellipse 35% 10% at ${50 + offset.x * 0.2}% 8%, rgba(50, 100, 150, 0.2) 0%, transparent 100%)
           `,
+          WebkitMaskImage: bandMask,
+          maskImage: bandMask,
+        }}
+      />
+
+      {/* Cloud / haze band (masked to the horizon area) */}
+      <div
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[250vw] h-[250vw] rounded-full opacity-30"
+        style={{
+          background: `
+            radial-gradient(ellipse 24% 6% at ${40 + offset.x * 0.6}% 4.4%, rgba(210, 235, 255, 0.18) 0%, transparent 78%),
+            radial-gradient(ellipse 20% 5% at ${58 + offset.x * 0.45}% 5.6%, rgba(190, 220, 255, 0.16) 0%, transparent 75%),
+            radial-gradient(ellipse 28% 7% at ${50 + offset.x * 0.35}% 7.2%, rgba(170, 210, 255, 0.12) 0%, transparent 76%)
+          `,
+          filter: "blur(10px)",
+          mixBlendMode: "screen",
+          WebkitMaskImage: bandMask,
+          maskImage: bandMask,
+        }}
+      />
+
+      {/* Specular highlight */}
+      <div
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[250vw] h-[250vw] rounded-full opacity-60"
+        style={{
+          background: `radial-gradient(ellipse 18% 5% at ${46 + offset.x * 0.7}% 3.2%, rgba(200, 235, 255, 0.22) 0%, rgba(140, 200, 255, 0.08) 28%, transparent 75%)`,
+          filter: "blur(6px)",
+          mixBlendMode: "screen",
+          WebkitMaskImage: bandMask,
+          maskImage: bandMask,
         }}
       />
       
@@ -135,6 +183,10 @@ function SpotlightOrb({ mousePos }: { mousePos: { x: number; y: number } }) {
             radial-gradient(ellipse 1.8% 0.4% at 63% 4.5%, rgba(255, 200, 120, 0.6) 0%, transparent 100%),
             radial-gradient(ellipse 1.2% 0.3% at 38% 5.5%, rgba(255, 210, 140, 0.5) 0%, transparent 100%)
           `,
+          filter: "blur(0.4px)",
+          mixBlendMode: "screen",
+          WebkitMaskImage: bandMask,
+          maskImage: bandMask,
         }}
       />
 
@@ -143,193 +195,35 @@ function SpotlightOrb({ mousePos }: { mousePos: { x: number; y: number } }) {
         className="absolute top-0 left-1/2 -translate-x-1/2 w-[250vw] h-[250vw] rounded-full"
         style={{ 
           boxShadow: `
-            inset 0 5px 60px rgba(80, 160, 255, 0.15),
-            inset 0 10px 30px rgba(100, 180, 255, 0.18),
-            inset 0 2px 15px rgba(120, 200, 255, 0.2),
-            0 -15px 60px rgba(60, 140, 255, 0.2),
-            0 -8px 40px rgba(80, 170, 255, 0.25),
-            0 -4px 20px rgba(100, 190, 255, 0.3),
-            0 -2px 10px rgba(140, 210, 255, 0.35)
+            inset 0 14px 120px rgba(120, 200, 255, 0.08),
+            inset 0 6px 55px rgba(90, 170, 255, 0.12),
+            inset 0 2px 18px rgba(140, 215, 255, 0.16),
+            0 -18px 90px rgba(70, 150, 255, 0.16),
+            0 -10px 55px rgba(90, 175, 255, 0.20),
+            0 -5px 28px rgba(120, 200, 255, 0.22),
+            0 -2px 14px rgba(150, 225, 255, 0.24)
           `,
         }}
       />
       
       {/* Soft curved glow following the planet edge */}
       <div 
-        className="absolute top-0 left-0 right-0 h-[60px] transition-all duration-700 rounded-b-[50%]"
+        className="absolute top-0 left-0 right-0 h-[110px] transition-all duration-700 rounded-b-[55%]"
         style={{ 
-          background: `radial-gradient(ellipse 60% 100% at 50% 0%, 
-            rgba(80, 160, 255, 0.2) 0%,
-            rgba(60, 140, 230, 0.12) 30%,
-            rgba(40, 100, 180, 0.06) 60%,
+          background: `radial-gradient(ellipse 62% 100% at 50% 0%,
+            rgba(140, 215, 255, 0.24) 0%,
+            rgba(90, 175, 255, 0.14) 28%,
+            rgba(60, 130, 230, 0.08) 55%,
+            rgba(20, 60, 140, 0.05) 70%,
             transparent 100%
           )`,
-          filter: 'blur(10px)',
+          filter: "blur(12px)",
+          mixBlendMode: "screen",
+          transform: `translate3d(${offset.x * 1.1}px, ${offset.y * 0.8}px, 0)`,
         }}
       />
     </div>
   );
-}
-
-// Space dust particle component
-function SpaceDust({ canvasRef }: { canvasRef: React.RefObject<HTMLCanvasElement | null> }) {
-  const mouseRef = useRef({ x: 0, y: 0 });
-  const particlesRef = useRef<Array<{
-    x: number;
-    y: number;
-    baseX: number;
-    baseY: number;
-    size: number;
-    speedX: number;
-    speedY: number;
-    opacity: number;
-    color: string;
-    trail: Array<{ x: number; y: number }>;
-  }>>([]);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    // Set canvas size
-    const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-    resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
-
-    // Premium color palette - elegant blues and silvers
-    const particleCount = 800;
-    const colors = ["#a8c7fa", "#c4d7ff", "#e8f0ff", "#7da8f5", "#bdd0ff"];
-    const trailLength = 6;
-    
-    particlesRef.current = Array.from({ length: particleCount }, () => {
-      const x = Math.random() * canvas.width;
-      const y = Math.random() * canvas.height;
-      return {
-        x,
-        y,
-        baseX: x,
-        baseY: y,
-        size: Math.random() * 1.5 + 0.5,
-        speedX: (Math.random() - 0.5) * 0.2,
-        speedY: (Math.random() - 0.5) * 0.2,
-        opacity: Math.random() * 0.4 + 0.1,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        trail: [],
-      };
-    });
-
-    // Mouse move handler - immediate update
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseRef.current = { x: e.clientX, y: e.clientY };
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-
-    // Animation loop
-    let animationId: number;
-    const trailLength_max = trailLength;
-    
-    const animate = () => {
-      // Clear canvas completely for transparency
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      particlesRef.current.forEach((particle) => {
-        // Store position in trail
-        particle.trail.push({ x: particle.x, y: particle.y });
-        if (particle.trail.length > trailLength_max) {
-          particle.trail.shift();
-        }
-
-        // Calculate distance from mouse
-        const dx = mouseRef.current.x - particle.x;
-        const dy = mouseRef.current.y - particle.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        const maxDistance = 180;
-
-        // Track if particle is being repelled by mouse
-        const isRepelled = distance < maxDistance;
-
-        // Repel particles from mouse - immediate response
-        if (isRepelled) {
-          const force = (maxDistance - distance) / maxDistance;
-          const angle = Math.atan2(dy, dx);
-          
-          // Direct position update for instant response
-          particle.x -= Math.cos(angle) * force * 25;
-          particle.y -= Math.sin(angle) * force * 25;
-        } else {
-          // Slowly return to floating motion
-          particle.baseX += particle.speedX;
-          particle.baseY += particle.speedY;
-
-          // Wrap around edges
-          if (particle.baseX < 0) particle.baseX = canvas.width;
-          if (particle.baseX > canvas.width) particle.baseX = 0;
-          if (particle.baseY < 0) particle.baseY = canvas.height;
-          if (particle.baseY > canvas.height) particle.baseY = 0;
-
-          // Smooth return to base position
-          particle.x += (particle.baseX - particle.x) * 0.08;
-          particle.y += (particle.baseY - particle.y) * 0.08;
-        }
-
-        // Draw subtle trail
-        if (particle.trail.length > 1) {
-          ctx.beginPath();
-          ctx.moveTo(particle.trail[0].x, particle.trail[0].y);
-          
-          for (let i = 1; i < particle.trail.length; i++) {
-            ctx.lineTo(particle.trail[i].x, particle.trail[i].y);
-          }
-          ctx.lineTo(particle.x, particle.y);
-          
-          ctx.strokeStyle = particle.color;
-          ctx.lineWidth = particle.size * 0.5;
-          ctx.lineCap = "round";
-          ctx.lineJoin = "round";
-          ctx.globalAlpha = particle.opacity * 0.15;
-          ctx.stroke();
-          ctx.globalAlpha = 1;
-        }
-
-        // Draw particle
-        ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx.fillStyle = particle.color;
-        ctx.globalAlpha = particle.opacity;
-        ctx.fill();
-        ctx.globalAlpha = 1;
-
-        // Draw subtle glow
-        ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.size * 2.5, 0, Math.PI * 2);
-        const gradient = ctx.createRadialGradient(
-          particle.x, particle.y, 0,
-          particle.x, particle.y, particle.size * 2.5
-        );
-        gradient.addColorStop(0, particle.color + "15");
-        gradient.addColorStop(1, "transparent");
-        ctx.fillStyle = gradient;
-        ctx.fill();
-      });
-
-      animationId = requestAnimationFrame(animate);
-    };
-    animate();
-
-    return () => {
-      window.removeEventListener("resize", resizeCanvas);
-      window.removeEventListener("mousemove", handleMouseMove);
-      cancelAnimationFrame(animationId);
-    };
-  }, [canvasRef]);
-
-  return null;
 }
 
 export default function HeroSection() {
@@ -337,7 +231,8 @@ export default function HeroSection() {
   const [currentSentenceIndex, setCurrentSentenceIndex] = useState(0);
   const [showScroll, setShowScroll] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [introDone, setIntroDone] = useState(false);
+  const [textReady, setTextReady] = useState(false);
 
   // Track mouse position for spotlight
   useEffect(() => {
@@ -351,6 +246,14 @@ export default function HeroSection() {
   const currentWords = sentences[currentSentenceIndex];
 
   useEffect(() => {
+    if (!introDone) return;
+    const t = setTimeout(() => setTextReady(true), 650);
+    return () => clearTimeout(t);
+  }, [introDone]);
+
+  useEffect(() => {
+    if (!textReady) return;
+
     // Animation cycle timings
     const maxWords = Math.max(...sentences.map(s => s.length));
     const appearDuration = maxWords * 300; // Faster word appearance
@@ -393,89 +296,27 @@ export default function HeroSection() {
       clearInterval(interval);
       clearTimeout(scrollTimer);
     };
-  }, [currentSentenceIndex]);
+  }, [currentSentenceIndex, textReady]);
 
   return (
     <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-black pb-60">
-      {/* Static star field background */}
-      <div className="absolute inset-0 z-0">
-        {/* Tiny stars layer */}
-        <div 
-          className="absolute inset-0 opacity-70"
-          style={{
-            backgroundImage: `
-              radial-gradient(1px 1px at 20px 30px, white, transparent),
-              radial-gradient(1px 1px at 40px 70px, rgba(255,255,255,0.8), transparent),
-              radial-gradient(1px 1px at 50px 160px, rgba(255,255,255,0.6), transparent),
-              radial-gradient(1px 1px at 90px 40px, white, transparent),
-              radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.7), transparent),
-              radial-gradient(1px 1px at 160px 120px, white, transparent),
-              radial-gradient(1.5px 1.5px at 200px 50px, rgba(200,220,255,0.9), transparent),
-              radial-gradient(1px 1px at 220px 150px, white, transparent),
-              radial-gradient(1px 1px at 280px 90px, rgba(255,255,255,0.6), transparent),
-              radial-gradient(1.5px 1.5px at 320px 20px, rgba(180,200,255,0.8), transparent),
-              radial-gradient(1px 1px at 350px 180px, white, transparent),
-              radial-gradient(1px 1px at 400px 60px, rgba(255,255,255,0.7), transparent),
-              radial-gradient(1px 1px at 450px 140px, white, transparent),
-              radial-gradient(1.5px 1.5px at 500px 30px, rgba(220,200,255,0.8), transparent),
-              radial-gradient(1px 1px at 550px 100px, rgba(255,255,255,0.5), transparent)
-            `,
-            backgroundSize: '600px 200px',
-          }}
-        />
-        {/* Second stars layer offset */}
-        <div 
-          className="absolute inset-0 opacity-50"
-          style={{
-            backgroundImage: `
-              radial-gradient(1px 1px at 100px 50px, white, transparent),
-              radial-gradient(1.5px 1.5px at 200px 150px, rgba(200,180,255,0.7), transparent),
-              radial-gradient(1px 1px at 300px 100px, rgba(255,255,255,0.6), transparent),
-              radial-gradient(1px 1px at 400px 200px, white, transparent),
-              radial-gradient(2px 2px at 500px 80px, rgba(180,200,255,0.5), transparent),
-              radial-gradient(1px 1px at 150px 250px, rgba(255,255,255,0.7), transparent),
-              radial-gradient(1px 1px at 350px 300px, white, transparent),
-              radial-gradient(1.5px 1.5px at 450px 350px, rgba(220,200,255,0.6), transparent)
-            `,
-            backgroundSize: '550px 400px',
-          }}
-        />
-      </div>
-
-      {/* Nebula clouds */}
-      <div className="absolute inset-0 z-1 overflow-hidden">
-        {/* Top right nebula */}
-        <div 
-          className="absolute -top-[20%] -right-[10%] w-[60%] h-[60%] opacity-20 blur-[100px]"
-          style={{ background: "radial-gradient(ellipse, rgba(76, 29, 149, 0.5) 0%, rgba(30, 58, 138, 0.3) 40%, transparent 70%)" }}
-        />
-        {/* Bottom left nebula */}
-        <div 
-          className="absolute -bottom-[30%] -left-[20%] w-[70%] h-[70%] opacity-15 blur-[120px]"
-          style={{ background: "radial-gradient(ellipse, rgba(30, 58, 138, 0.5) 0%, rgba(88, 28, 135, 0.3) 40%, transparent 70%)" }}
-        />
-        {/* Center subtle glow */}
-        <div 
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] opacity-10 blur-[150px]"
-          style={{ background: "radial-gradient(ellipse, rgba(99, 102, 241, 0.4) 0%, transparent 60%)" }}
-        />
-      </div>
+      <ParallaxSpaceBackground introMs={2000} settleMs={700} onIntroComplete={() => setIntroDone(true)} />
 
       {/* Planet horizon orb - positioned below the text */}
-      <div className="absolute bottom-[-2500px] sm:bottom-[-350px] lg:bottom-[-450px] left-0 right-0 z-2">
+      <div
+        className={`absolute bottom-[-2500px] sm:bottom-[-350px] lg:bottom-[-450px] left-0 right-0 z-2 will-change-transform transition-[transform,opacity] duration-1000 ease-out ${
+          introDone ? "translate-y-0 opacity-100" : "translate-y-[70vh] opacity-0"
+        }`}
+      >
         <SpotlightOrb mousePos={mousePos} />
       </div>
 
-      {/* Space dust canvas */}
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 z-3"
-        style={{ pointerEvents: "none" }}
-      />
-      <SpaceDust canvasRef={canvasRef} />
-
       {/* Content */}
-      <div className="relative z-10 text-center px-4 -mt-24 sm:-mt-32 lg:-mt-40">
+      <div
+        className={`relative z-10 text-center px-4 -mt-24 sm:-mt-32 lg:-mt-40 transition-opacity duration-700 ${
+          textReady ? "opacity-100" : "opacity-0"
+        }`}
+      >
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-tight tracking-tight">
           <span className="flex flex-wrap items-center justify-center gap-3 sm:gap-5 md:gap-6">
             {currentWords.map((word, index) => (
