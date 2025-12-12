@@ -1,27 +1,9 @@
 "use client";
 
-import Link from "next/link";
-import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram, ArrowUp } from "lucide-react";
-import { useEffect, useState } from "react";
-import "@/styles/Footer.css";
+import { Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
 
 export default function Footer() {
-  const [showTop, setShowTop] = useState(false);
   const currentYear = new Date().getFullYear();
-
-  useEffect(() => {
-    const onScroll = () => setShowTop(window.scrollY > 300);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  const quickLinks = [
-    { name: "Home", href: "/" },
-    { name: "About", href: "#about" },
-    { name: "Programs", href: "#features" },
-    { name: "Pricing", href: "#pricing" },
-    { name: "Contact", href: "#contact" },
-  ];
 
   const socialLinks = [
     { name: "Facebook", icon: Facebook, href: "#" },
@@ -30,108 +12,40 @@ export default function Footer() {
     { name: "LinkedIn", icon: Linkedin, href: "#" },
   ];
 
-  const handleScrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
   return (
-    <footer className="footer">
-      <div className="footer-inner">
-        {/* Brand + short text */}
-        <div className="footer-block">
-          <h3 className="footer-logo">XENTRO</h3>
-          <p className="footer-text">
-            India&apos;s first digital incubator for student founders.
-          </p>
-          <div className="footer-contact">
-            <div className="contact-row">
-              <MapPin size={16} />
-              <span>VDC, GITAM University, Visakhapatnam</span>
-            </div>
-            <div className="contact-row">
-              <Phone size={16} />
-              <span>+91 79935 04337</span>
-            </div>
-            <div className="contact-row">
-              <Mail size={16} />
-              <span>xentro@gmail.com</span>
-            </div>
+    <footer className="relative border-t border-white/5 bg-[#020617]">
+      <div className="w-full flex justify-center px-6 lg:px-12 py-6 sm:py-8">
+        <div className="w-full max-w-6xl flex flex-col sm:flex-row items-center justify-between gap-6">
+          {/* Copyright */}
+          <div className="text-xs sm:text-sm text-gray-500 order-2 sm:order-1">
+            © {currentYear} XENTRO. All rights reserved.
           </div>
-        </div>
 
-        {/* Quick links */}
-        <div className="footer-block">
-          <h4 className="footer-heading">Links</h4>
-          <nav className="footer-links" aria-label="Footer navigation">
-            {quickLinks.map((link) => (
-              <Link key={link.name} href={link.href} className="footer-link">
-                {link.name}
-              </Link>
+          {/* Social Links */}
+          <div className="flex items-center gap-3 sm:gap-4 order-1 sm:order-2">
+            {socialLinks.map((social) => (
+              <a
+                key={social.name}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 hover:border-white/20 hover:scale-110 transition-all duration-300"
+                aria-label={social.name}
+              >
+                <social.icon className="w-4 h-4" />
+              </a>
             ))}
-          </nav>
-        </div>
-
-        {/* Newsletter */}
-        <div className="footer-block">
-          <h4 className="footer-heading">Stay updated</h4>
-          <p className="footer-text">
-            Get updates about new cohorts, events, and resources.
-          </p>
-          <form
-            className="footer-newsletter"
-            onSubmit={(e) => {
-              e.preventDefault();
-              console.log("subscribe");
-            }}
-          >
-            <input
-              type="email"
-              required
-              placeholder="Enter your email"
-              className="newsletter-input"
-              aria-label="Email address"
-            />
-            <button type="submit" className="newsletter-btn">
-              Join
-            </button>
-          </form>
-          <div className="footer-social">
-            {socialLinks.map((item) => {
-              const Icon = item.icon;
-              return (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  aria-label={item.name}
-                  className="social-icon"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <Icon size={18} />
-                </a>
-              );
-            })}
           </div>
+
+          {/* Join Waitlist Button */}
+          <button
+            className="w-full sm:w-auto order-3 group px-8 py-3 bg-white/5 backdrop-blur-sm text-white text-sm font-semibold rounded-full border border-white/10 hover:bg-white hover:text-black hover:scale-105 transition-all duration-300"
+            onClick={() => console.log("Join Waitlist clicked")}
+          >
+            <span className="px-2">Join Waitlist</span>
+          </button>
         </div>
       </div>
-
-      <div className="footer-bottom">
-        <span>© {currentYear} XENTRO. All rights reserved.</span>
-        <div className="bottom-links">
-          <Link href="#privacy">Privacy</Link>
-          <Link href="#terms">Terms</Link>
-          <Link href="#cookies">Cookies</Link>
-        </div>
-      </div>
-
-      <button
-        type="button"
-        className={`top-btn ${showTop ? "top-btn-show" : ""}`}
-        onClick={handleScrollToTop}
-        aria-label="Back to top"
-      >
-        <ArrowUp size={18} />
-      </button>
     </footer>
   );
 }
