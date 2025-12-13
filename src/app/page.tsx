@@ -1,7 +1,6 @@
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
-import StatsSection from "@/components/StatsSection";
-import BentoSection from "@/components/BentoSection";
+import AboutSection from "@/components/AboutSection";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -9,8 +8,7 @@ export default function Home() {
     <main className="relative w-full overflow-x-hidden bg-[#020617]">
       <Navbar />
       <HeroSection />
-      <StatsSection />
-      <BentoSection />
+      <AboutSection />
       <Footer />
     </main>
   );
