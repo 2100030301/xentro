@@ -102,7 +102,7 @@ function SpotlightOrb({ mousePos }: { mousePos: { x: number; y: number } }) {
   return (
     <div
       ref={orbRef}
-      className="relative w-screen h-[500px] sm:h-[600px] lg:h-[700px]"
+      className="relative w-full h-[500px] sm:h-[600px] lg:h-[700px] flex justify-center"
       style={{ maxWidth: '100vw' }}
     >
       {/* Sun/Starburst Glow - Behind the planet */}
