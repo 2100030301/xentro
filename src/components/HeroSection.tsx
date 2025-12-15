@@ -241,7 +241,7 @@ export default function HeroSection() {
 
       {/* Content */}
       <div
-        className={`relative z-10 text-center px-4 -mt-24 sm:-mt-32 lg:-mt-40 transition-opacity duration-700 ${
+        className={`relative z-10 text-center px-4 pt-16 sm:pt-20 lg:pt-24 transition-opacity duration-700 ${
           textReady ? "opacity-100" : "opacity-0"
         }`}
       >
