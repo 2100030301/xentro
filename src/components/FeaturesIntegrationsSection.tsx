@@ -193,47 +193,39 @@ export default function FeaturesIntegrationsSection() {
             Features
           </motion.p>
           <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white px-4 leading-tight">
-            <motion.span
-              className="inline-block"
-              initial={{ opacity: 0 }}
-              animate={isInView ? { opacity: 1 } : {}}
-            >
-              {"Empowering Student Founders, ".split("").map((char, index) => (
+            {"Every tool you need to ".split("").map((char, index) => (
+              <motion.span
+                key={`char1-${index}`}
+                className="inline-block"
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ 
+                  duration: 0.3, 
+                  delay: 0.3 + index * 0.02,
+                  ease: "easeOut"
+                }}
+              >
+                {char === " " ? "\u00A0" : char}
+              </motion.span>
+            ))}
+            <span className="inline-block glow-text bg-gradient-to-r from-blue-400 via-blue-500 to-indigo-600 bg-clip-text text-transparent">
+              {"transform your idea into reality".split("").map((char, index) => (
                 <motion.span
-                  key={`char-${index}`}
-                  initial={{ opacity: 0 }}
-                  animate={isInView ? { opacity: 1 } : {}}
-                  transition={{ duration: 0.03, delay: 0.3 + index * 0.03 }}
+                  key={`char2-${index}`}
+                  className="inline-block"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ 
+                    duration: 0.3, 
+                    delay: 0.3 + ("Every tool you need to ".length + index) * 0.02,
+                    ease: "easeOut"
+                  }}
                 >
-                  {char}
+                  {char === " " ? "\u00A0" : char}
                 </motion.span>
               ))}
-            </motion.span>
-            <motion.span 
-              className="inline-block glow-text bg-gradient-to-r from-blue-400 via-blue-500 to-indigo-600 bg-clip-text text-transparent"
-              initial={{ opacity: 0 }}
-              animate={isInView ? { opacity: 1 } : {}}
-            >
-              {"Seamlessly".split("").map((char, index) => (
-                <motion.span
-                  key={`glow-char-${index}`}
-                  initial={{ opacity: 0 }}
-                  animate={isInView ? { opacity: 1 } : {}}
-                  transition={{ duration: 0.03, delay: 1.1 + index * 0.05 }}
-                >
-                  {char}
-                </motion.span>
-              ))}
-            </motion.span>
+            </span>
           </h2>
-          <motion.p
-            className="mt-6 text-gray-400/80 max-w-2xl mx-auto text-lg text-center"
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.8, delay: 1.6 }}
-          >
-            Every tool you need to transform your idea into reality
-          </motion.p>
         </motion.div>
 
         {/* Icon Path Layout */}
@@ -532,7 +524,7 @@ export default function FeaturesIntegrationsSection() {
 
         {/* Feature Description Area with Enhanced Animation */}
         <motion.div 
-          className="text-center max-w-3xl mx-auto px-4"
+          className="text-center max-w-4xl mx-auto px-4 md:px-8"
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.5 }}
@@ -546,46 +538,131 @@ export default function FeaturesIntegrationsSection() {
               transition={{ duration: 0.5, ease: "easeOut" }}
               className="relative"
             >
-              {/* Decorative elements */}
+              {/* Glowing background card */}
               <motion.div
-                className="absolute -top-8 left-1/2 -translate-x-1/2 w-16 h-1 rounded-full"
+                className="absolute inset-0 rounded-3xl opacity-40"
                 style={{
-                  background: "linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.5), transparent)",
+                  background: "radial-gradient(circle at center, rgba(96, 165, 250, 0.1), transparent 70%)",
                 }}
-                animate={{ scaleX: [0.5, 1, 0.5] }}
-                transition={{ duration: 2, repeat: Infinity }}
+                animate={{
+                  scale: [1, 1.05, 1],
+                  opacity: [0.3, 0.5, 0.3],
+                }}
+                transition={{ duration: 3, repeat: Infinity }}
               />
+
+              {/* Top decorative line */}
+              <motion.div
+                className="flex items-center justify-center gap-3 mb-6"
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4, delay: 0.2 }}
+              >
+                <motion.div
+                  className="h-px w-12 md:w-16 rounded-full bg-gradient-to-r from-transparent to-blue-400/50"
+                  animate={{ scaleX: [0.5, 1, 0.5] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                />
+                <motion.p 
+                  className="text-[10px] md:text-xs uppercase tracking-[0.2em] text-blue-300/70 font-semibold"
+                  animate={{ opacity: [0.7, 1, 0.7] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
+                  Expert Guidance
+                </motion.p>
+                <motion.div
+                  className="h-px w-12 md:w-16 rounded-full bg-gradient-to-l from-transparent to-blue-400/50"
+                  animate={{ scaleX: [0.5, 1, 0.5] }}
+                  transition={{ duration: 2, repeat: Infinity, delay: 1 }}
+                />
+              </motion.div>
               
-              <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-white mb-4">
-                <span className="bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent">
-                  {features[activeFeature].title}
+              {/* Main title with enhanced styling */}
+              <motion.h3 
+                className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-6 relative"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+              >
+                <span className="relative inline-block">
+                  <span className="bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent relative z-10">
+                    {features[activeFeature].title}
+                  </span>
+                  {/* Glow effect behind text */}
+                  <motion.span
+                    className="absolute inset-0 blur-xl bg-gradient-to-r from-blue-400/30 via-blue-300/40 to-blue-400/30"
+                    animate={{ opacity: [0.3, 0.6, 0.3] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  />
                 </span>
-              </h3>
-              <p className="text-base md:text-lg text-gray-400/90 leading-relaxed">
-                {features[activeFeature].description}
-              </p>
+              </motion.h3>
+
+              {/* Description with enhanced styling */}
+              <motion.div
+                className="relative inline-block max-w-2xl mx-auto"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+              >
+                {/* Decorative quotes */}
+                <motion.div 
+                  className="absolute -left-4 md:-left-8 -top-2 text-blue-400/20 text-4xl md:text-6xl font-serif"
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 0.3, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.5 }}
+                >
+                  "
+                </motion.div>
+                
+                <p className="text-base md:text-lg lg:text-xl text-gray-300/90 leading-relaxed px-6 md:px-12">
+                  {features[activeFeature].description}
+                </p>
+
+                <motion.div 
+                  className="absolute -right-4 md:-right-8 -bottom-6 text-blue-400/20 text-4xl md:text-6xl font-serif"
+                  initial={{ opacity: 0, x: 10 }}
+                  animate={{ opacity: 0.3, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.5 }}
+                >
+                  "
+                </motion.div>
+              </motion.div>
               
-              {/* Progress indicator dots */}
-              <div className="flex justify-center gap-2 mt-8">
+              {/* Progress indicator dots with enhanced styling */}
+              <div className="flex justify-center items-center gap-2 mt-12">
+                <div className="h-px w-8 bg-gradient-to-r from-transparent to-blue-500/30" />
                 {features.map((_, idx) => (
                   <motion.button
                     key={idx}
-                    className="w-2 h-2 rounded-full transition-colors"
-                    style={{
-                      backgroundColor: idx === activeFeature 
-                        ? "rgb(96, 165, 250)" 
-                        : idx < activeFeature 
-                        ? "rgba(43, 64, 246, 0.6)"
-                        : "rgba(71, 85, 105, 0.5)",
-                    }}
+                    className="relative group"
                     whileHover={{ scale: 1.5 }}
                     onClick={() => {
                       setActiveFeature(idx);
                       setIsPaused(true);
                     }}
                     aria-label={`Go to feature ${idx + 1}`}
-                  />
+                  >
+                    <motion.div
+                      className="w-2.5 h-2.5 rounded-full transition-all"
+                      style={{
+                        backgroundColor: idx === activeFeature 
+                          ? "rgb(96, 165, 250)" 
+                          : idx < activeFeature 
+                          ? "rgba(43, 64, 246, 0.6)"
+                          : "rgba(71, 85, 105, 0.5)",
+                      }}
+                      animate={idx === activeFeature ? {
+                        boxShadow: [
+                          "0 0 0 0 rgba(96, 165, 250, 0.4)",
+                          "0 0 0 8px rgba(96, 165, 250, 0)",
+                          "0 0 0 0 rgba(96, 165, 250, 0)"
+                        ]
+                      } : {}}
+                      transition={{ duration: 1.5, repeat: Infinity }}
+                    />
+                  </motion.button>
                 ))}
+                <div className="h-px w-8 bg-gradient-to-l from-transparent to-blue-500/30" />
               </div>
             </motion.div>
           </AnimatePresence>
