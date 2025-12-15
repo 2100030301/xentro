@@ -452,23 +452,6 @@ export default function FeaturesIntegrationsSection() {
                           />
                         </>
                       )}
-
-                      {/* Feature number badge */}
-                      <motion.div
-                        className="absolute -bottom-2 -right-2 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold"
-                        animate={{
-                          background: isPassed 
-                            ? "linear-gradient(135deg, #2b40f6, #60a5fa)" 
-                            : "rgba(30, 41, 59, 0.8)",
-                          color: isPassed ? "#fff" : "rgba(148, 163, 184, 0.8)",
-                          boxShadow: isPassed 
-                            ? "0 0 15px rgba(43, 64, 246, 0.5)" 
-                            : "none",
-                        }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        {index + 1}
-                      </motion.div>
                     </motion.div>
                   );
                 })}
